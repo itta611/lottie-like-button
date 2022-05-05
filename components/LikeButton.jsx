@@ -3,12 +3,14 @@ import lottie from 'lottie-web';
 import styles from '../styles/LikeButton.module.css';
 
 let animation;
-function handleLikeButtonClick(animation) {
+function handleLikeButtonClick(animation, setIsLiked) {
   animation.play();
+  setIsLiked(true);
 }
 
 function LikeButton() {
   const ref = useRef(null);
+  const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
     animation = lottie.loadAnimation({
       autoplay: false,
@@ -22,8 +24,8 @@ function LikeButton() {
   return (
     <div
       ref={ref}
-      onClick={() => handleLikeButtonClick(animation)}
-      className={styles.LikeButton}
+      onClick={() => handleLikeButtonClick(animation, setIsLiked)}
+      className={styles.LikeButton + (isLiked ? ' ' + styles.liked : '')}
     />
   );
 }
